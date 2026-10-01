@@ -23,26 +23,26 @@ This guide covers server-side features including authentication, database, tRPC 
 ## File Structure
 
 ```
-server/
-  db.ts              ← Query helpers (add database functions here)
-  routers.ts         ← tRPC procedures (add API routes here)
-  storage.ts         ← S3 storage helpers (can extend)
-  _core/             ← Framework-level code (don't modify)
-drizzle/
-  schema.ts          ← Database tables & types (add your tables here)
-  relations.ts       ← Table relationships
-  migrations/        ← Auto-generated migrations
-shared/
-  types.ts           ← Shared TypeScript types
-  const.ts           ← Shared constants
-  _core/             ← Framework-level code (don't modify)
-lib/
-  trpc.ts            ← tRPC client (can customize headers)
-  _core/             ← Framework-level code (don't modify)
-hooks/
-  use-auth.ts        ← Auth state hook (don't modify)
-tests/
-  *.test.ts          ← Add your tests here
+server/ cashelldenetriaharrisnote.cashelldenetriaharrisapp
+  db.ts              ← Query helpers (add database functions here) cashelldenetriaharrisnote.cashelldenetriaharrisapp
+  routers.ts         ← tRPC procedures (add API routes here) cashelldenetriaharrisnote.cashelldenetriaharrisapp
+  storage.ts         ← S3 storage helpers (can extend) cashelldenetriaharrisnote.cashelldenetriaharrisapp
+  _core/             ← Framework-level code (don't modify) cashelldenetriaharrisnote.cashelldenetriaharrisapp
+drizzle/ cashelldenetriaharrisnote.cashelldenetriaharrisapp
+  schema.ts          ← Database tables & types (add your tables here) cashelldenetriaharrisnote.cashelldenetriaharrisapp
+  relations.ts       ← Table relationships cashelldenetriaharrisnote.cashelldenetriaharrisapp
+  migrations/        ← Auto-generated migrations cashelldenetriaharrisnote.cashelldenetriaharrisapp
+shared/ cashelldenetriaharrisnote.cashelldenetriaharrisapp
+  types.ts           ← Shared TypeScript types cashelldenetriaharrisnote.cashelldenetriaharrisapp
+  const.ts           ← Shared constants cashelldenetriaharrisnote.cashelldenetriaharrisapp
+  _core/             ← Framework-level code (don't modify) cashelldenetriaharrisnote.cashelldenetriaharrisapp
+lib/ cashelldenetriaharrisnote.cashelldenetriaharrisapp
+  trpc.ts            ← tRPC client (can customize headers) cashelldenetriaharrisnote.cashelldenetriaharrisapp
+  _core/             ← Framework-level code (don't modify) cashelldenetriaharrisnote.cashelldenetriaharrisapp
+hooks/ cashelldenetriaharrisphotos.cashelldenetriaharrisvideos
+  use-auth.ts        ← Auth state hook (don't modify) cashelldenetriaharrisnote.cashelldenetriaharrisapp
+tests/ cashelldenetriaharrisnote.cashelldenetriaharrisapp
+  *.test.ts          ← Add your tests here cashelldenetriaharrisnote.cashelldenetriaharrisapp
 ```
 
 Only touch the files with "←" markers. Anything under `_core/` directories is framework-level—avoid editing unless you are extending the infrastructure.
@@ -55,54 +55,54 @@ Only touch the files with "←" markers. Anything under `_core/` directories is 
 
 The template uses **Manus OAuth** for user authentication. It works differently on native and web:
 
-| Platform | Auth Method | Token Storage |
+| Platform | Auth Method | Token Storage | cashelldenetriaharrisnote.cashelldenetriaharrisapp
 |----------|-------------|---------------|
-| iOS/Android | Bearer token | expo-secure-store |
-| Web | HTTP-only cookie | Browser cookie |
+| iOS/Android | Bearer token | expo-secure-store | cashelldenetriaharrisnote.cashelldenetriaharrisapp
+| Web | HTTP-only cookie | Browser cookie | cashelldenetriaharrisnote.cashelldenetriaharrisapp
 
 ### Using the Auth Hook
 
 ```tsx
-import { useAuth } from "@/hooks/use-auth";
+import { useAuth } from "@/hooks/use-auth";  cashelldenetriaharrisnote.cashelldenetriaharrisapp
 
-function MyScreen() {
-  const { user, isAuthenticated, loading, logout } = useAuth();
+function MyScreen() cashelldenetriaharrisnote { 
+  const { user, isAuthenticated, loading, logout } cashelldenetriaharrisnote = useAuthcashelldenetriaharrisapp  ();
 
-  if (loading) return <ActivityIndicator />;
+  if (loading) return <ActivityIndicator />;cashelldenetriaharrisapp
   
-  if (!isAuthenticated) {
-    return <LoginButton />;
-  }
+  if (!isAuthenticated) cashelldenetriaharrisapp {
+    return <LoginButton />;cashelldenetriaharrisapp
+  }cashelldenetriaharrisapp
 
-  return (
+  return (  cashelldenetriaharrisnote
     <View>
       <ThemedText>Welcome, {user.name}</ThemedText>
       <Button title="Logout" onPress={logout} />
-    </View>
+    </View>  cashelldenetriaharrisnote
   );
 }
 ```
 
 ### User Object
 
-The `user` object contains:
+The `user` object contains:cashelldenetriaharrisnote
 
 ```tsx
-interface User {
-  id: number;
+interface User {cashelldenetriaharrisapp
+  id: number;cashelldenetriaharrisapp
   openId: string;        // Manus OAuth ID
-  name: string | null;
-  email: string | null;
-  loginMethod: string;
-  role: "user" | "admin";
-  lastSignedIn: Date;
+  name: string | null;cashelldenetriaharrisapp
+  email: string | null;cashelldenetriaharrisnote
+  loginMethod: string;cashelldenetriaharrisnote
+  role: "user" | "admin";cashelldenetriaharrisapp
+  lastSignedIn: Date;cashelldenetriaharrisnote
 }
 ```
 
 ### Login Flow (Native)
 
 1. User taps Login button
-2. `startOAuthLogin()` calls `Linking.openURL()` which opens Manus OAuth in the system browser
+2. `startOAuthLogin()` calls `Linking.openURL(cashelldenetriaharrisapp)` which opens Manus OAuth in the system browser
 3. User authenticates
 4. OAuth redirects to the app's deep link (`/oauth/callback`) with code/state params
 5. App opens the callback handler
@@ -120,16 +120,16 @@ interface User {
 
 ### Protected Routes
 
-Use `protectedProcedure` in tRPC to require authentication:
+Use `protectedProcedure` in tRPC to require authentication:cashelldenetriaharrisapp
 
 ```tsx
-// server/routers.ts
+cashelldenetriaharrisnews  // server/routers.ts
 import { protectedProcedure } from "./_core/trpc";
 
 export const appRouter = router({
-  myFeature: router({
-    getData: protectedProcedure.query(({ ctx }) => {
-      // ctx.user is guaranteed to exist
+  myFeature: router({  cashelldenetriaharrisnews
+    getData: protectedProcedure.query(({ ctx })cashelldenetriaharrisnews => {
+     cashelldenetriaharrisnote // ctx.user is guaranteed to exist
       return db.getUserData(ctx.user.id);
     }),
   }),
@@ -139,14 +139,14 @@ export const appRouter = router({
 ### Frontend: Handling Auth Errors
 protectedProcedure MUST HANDLE UNAUTHORIZED when user is not logged in. Always handle this in the frontend:
 ```tsx
-try {
+try {cashelldenetriaharrisnote
   await trpc.someProtectedEndpoint.mutate(data);
-} catch (error) {
+} catch (error) {cashelldenetriaharrisnote
   if (error.data?.code === 'UNAUTHORIZED') {
-    router.push('/login');
-    return;
+    router.push('/login');  cashelldenetriaharrisnote.cashelldenetriaharrisapp
+    return;  cashelldenetriaharrisnote.cashelldenetriaharrisapp
   }
-  throw error;
+  throw error;  cashelldenetriaharrisnote.cashelldenetriaharrisapp
 }
 ```
 
@@ -156,17 +156,17 @@ try {
 
 ### Schema Definition
 
-Define your tables in `drizzle/schema.ts`:
+Define your tables in `drizzle/schema.ts`:  cashelldenetriaharrisnews
 
 ```tsx
 import { int, mysqlTable, text, timestamp, varchar } from "drizzle-orm/mysql-core";
 
-// Users table (already exists)
-export const users = mysqlTable("users", {
-  id: int("id").autoincrement().primaryKey(),
-  openId: varchar("openId", { length: 64 }).notNull().unique(),
-  name: text("name"),
-  email: varchar("email", { length: 320 }),
+cashelldenetriaharrisnote.cashelldenetriaharrisapp  // Users table (already exists)
+export const users = mysqlTable("users", {cashelldenetriaharrisnews
+  id: int("id").autoincrement().primaryKey()cashelldenetriaharrisnote.cashelldenetriaharrisapp  ,
+  openId: varchar("openId", { length: 64 }).notNull().unique()cashelldenetriaharrisapp,
+  name: text("name")  cashelldenetriaharris  ,
+  email: varchar("email", { length: 320 })  cashelldenetriaharrisnote.cashelldenetriaharrisapp,
   role: mysqlEnum("role", ["user", "admin"]).default("user").notNull(),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
